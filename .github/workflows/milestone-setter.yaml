@@ -1,0 +1,55 @@
+name: milestone-setter
+
+on:
+  workflow_call:
+    inputs:
+      token:
+        type: string
+        default: ${{ github.token }}
+      branch_name_filter:
+        required: true
+        type: string
+      milestone_prefix:
+        type: string
+        default: ""
+      milestone_suffix:
+        type: string
+        default: ""
+
+defaults:
+  run:
+    shell: bash -euxo pipefail {0}
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # for setting milestone
+      pull-requests: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - name: Check branch name
+        run: |
+          if [[ "${{ github.base_ref }}" =~ ${{ inputs.branch_name_filter }} ]]; then
+              echo "MATCHING=true" >> ${GITHUB_ENV}
+          else
+              echo "MATCHING=false" >> ${GITHUB_ENV}
+          fi
+      - name: Set environment
+        if: env.MATCHING == 'true'
+        run: |
+          base_ref="${{ github.base_ref }}"
+          base_ref="${base_ref//\//-}" # Replace slashes with dashes
+          echo TARGET_MILESTONE="${{ inputs.milestone_prefix }}${base_ref}${{ inputs.milestone_suffix }}" >> ${GITHUB_ENV}
+      - name: Create milestone
+        if: env.MATCHING == 'true'
+        run: |
+          if [[ ! $(gh api repos/${{ github.repository }}/milestones --jq '.[].title' | grep -w "^${TARGET_MILESTONE}$") ]]; then
+              gh api repos/${{ github.repository }}/milestones -f title="${TARGET_MILESTONE}" -f description="Created by ${{ github.workflow }}"
+          fi
+      - name: Set milestone to PR
+        if: env.MATCHING == 'true'
+        run: |
+          gh pr edit ${{ github.event.pull_request.number }} --milestone "${TARGET_MILESTONE}" || :
