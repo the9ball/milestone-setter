@@ -64,6 +64,11 @@ jobs:
       # Default: ${{ github.token }}
       token: ''
 
+      # Target repository
+      # Basically, no need to specify.
+      # Default: ${{ github.repository }}
+      repository: ''
+
       # Specify the prefix/suffix of the milestone to be created.
       milestone_prefix: ''
       milestone_suffix: ''
