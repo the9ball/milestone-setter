@@ -61,12 +61,12 @@ jobs:
 
       # GitHub token.
       # Basically, no need to specify.
-      # Default: ${{ github.token }}
+      # Defaults to ${{ github.token }} if not provided.
       token: ''
 
       # Target repository
       # Basically, no need to specify.
-      # Default: ${{ github.repository }}
+      # Defaults to ${{ github.repository }} if not provided.
       repository: ''
 
       # Specify the prefix/suffix of the milestone to be created.
