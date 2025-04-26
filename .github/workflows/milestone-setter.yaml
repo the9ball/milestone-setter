@@ -30,7 +30,9 @@ jobs:
       contents: write # for setting milestone
       pull-requests: write
     env:
-      GH_TOKEN: ${{ github.token }}
+      # The `GH_TOKEN` is being reassigned here to ensure it is explicitly set,
+      # as `github.token` might not be available at the workflow execution time.
+      GH_TOKEN: ${{ inputs.token || github.token }}
       GH_REPO: ${{ inputs.repository || github.repository }}
     steps:
       - name: Check branch name
