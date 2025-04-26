@@ -6,9 +6,11 @@ on:
       token:
         type: string
         default: ${{ github.token }}
+        description: The GitHub token used for authentication. Defaults to github.token if not provided.
       repository:
         type: string
         default: ${{ github.repository }}
+        description: The target repository for the operation. Defaults to github.repository if not provided.
       branch_name_filter:
         required: true
         type: string
