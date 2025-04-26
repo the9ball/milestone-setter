@@ -17,7 +17,7 @@ The Milestone Setter is a GitHub Actions workflow designed to automate the creat
 
 Getting Started
 ---
-To use this workflow, include the `the9ball/milestone-setter/.github/workflows/milestone-setter.yaml@v0.1.0` workflow in your repository.
+To use this workflow, include the `the9ball/milestone-setter/.github/workflows/milestone-setter.yaml@v0.1.1` workflow in your repository.
 
 ```yaml
 on:
