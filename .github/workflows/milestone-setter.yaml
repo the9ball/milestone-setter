@@ -6,6 +6,9 @@ on:
       token:
         type: string
         default: ${{ github.token }}
+      repository:
+        type: string
+        default: ${{ github.repository }}
       branch_name_filter:
         required: true
         type: string
@@ -28,7 +31,7 @@ jobs:
       pull-requests: write
     env:
       GH_TOKEN: ${{ github.token }}
-      GH_REPO: ${{ github.repository }}
+      GH_REPO: ${{ inputs.repository || github.repository }}
     steps:
       - name: Check branch name
         run: |
