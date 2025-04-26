@@ -29,7 +29,7 @@ on:
 
 jobs:
   call:
-    uses: the9ball/milestone-setter/.github/workflows/milestone-setter.yaml@v0.1.0
+    uses: the9ball/milestone-setter/.github/workflows/milestone-setter.yaml@v0.1.1
     permissions:
       contents: write # for creating milestone
       pull-requests: write
@@ -50,7 +50,7 @@ on:
 
 jobs:
   call:
-    uses: the9ball/milestone-setter/.github/workflows/milestone-setter.yaml@v0.1.0
+    uses: the9ball/milestone-setter/.github/workflows/milestone-setter.yaml@v0.1.1
     permissions:
       contents: write # for creating milestone
       pull-requests: write
